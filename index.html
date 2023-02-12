@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD project</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <marquee behavior="alternate" direction="right"><h1 style="text-align: center; color: red; ">Please enter your information</h1></marquee>
+    <!-- <ul>
+        <li class="li-item">Birinchi</li>
+        <li class="li-item">Ikkinchi</li>
+        <li>Uchinchi</li>
+    </ul> -->
+    <div id="myDiv">
+       <form name="myForm">
+        
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card"> 
+                    <div class="card-header">
+                        <img src="./img/avatar.png" style="text-align: center;" alt="person_card" weight="80" height="80" >
+                        Card
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col" name="firstname">
+                                <!-- <label for="firstname">First name:</label> -->
+                                <input type="text" name="firstname" placeholder="Firstname">
+                            </div>
+                            <br>
+                            <div class="col" name="lastname">
+                                <!-- <label for="lastname">Last name:</label> -->
+                                <input type="text" name="lastname" placeholder="Lastname">
+                            </div>
+                            <br>
+                            <div class="col" name="age">
+                                <!-- <label for="age">Age:</label> -->
+                                <input type="number" name="age" placeholder="Age">
+                            </div>
+                            <br>
+                            <div class="col" name="region">
+                                <!-- <label for="region">Region:</label> -->
+                                <input type="text" name="region" placeholder="Region">
+                            </div>
+                            <br>
+                            <div class="col" name="district">
+                                <!-- <label for="district">District:</label> -->
+                                <input type="text" name="district" placeholder="District">
+                            </div>
+                            <br>
+                            <div class="col" name="street">
+                                <!-- <label for="street">Street:</label> -->
+                                <input type="text" name="street" placeholder="Street">
+                            </div>
+                            <br>
+                            <div class="col" name="apartment">
+                                <!-- <label for="apartment">Apartment:</label> -->
+                                <input type="text" name="apartment" placeholder="Apartment">
+                            </div>
+                            <br>
+                    </div>
+        
+                    
+                        <div class="card-footer">
+                            <div>
+                                <button type="button" style="text-align: center;" id="myBtn" >Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        
+       </form>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

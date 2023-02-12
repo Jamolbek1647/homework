@@ -1,0 +1,22 @@
+{
+  "name": "homework",
+  "version": "1.0.0",
+  "description": "homework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jamolbek1647/project_CRUD_person_list.git"
+  },
+  "author": "Jamolbek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jamolbek1647/project_CRUD_person_list/issues"
+  },
+  "homepage": "https://github.com/Jamolbek1647/project_CRUD_person_list#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.1"
+  }
+}
