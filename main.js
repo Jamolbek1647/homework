@@ -6,7 +6,7 @@ class Person {
         this.address = address
     }
 }
-
+let persons = []
 class Address {
     constructor(region, district, street, apartment) {
         this.region = region
@@ -15,12 +15,13 @@ class Address {
         this.apartment = apartment
     }
 
+
 //DOM
 // console.log(document);
 // document.getElementById('myDiv');
 // const myDiv = document.getElementById('myDiv')
 // console.log(myDiv);
-let persons = []
+
 // myDiv.textContent = 'test text content' //faqat text yozish uchun
 
 // myDiv.innerHTML = '<strong>test text content</strong>' // htmldagi amallarni bajarsa bo'ladi yani html tiliga o'giradi
@@ -44,6 +45,9 @@ let persons = []
 
 //Button bosishda mal olsin
 
+const PersonList = JSON.parse(localStorage.getItem('persons'))
+    ? JSON.parse(localStorage.getItem('persons'))
+    : []
 const myBtn = document.getElementById('myBtn')
 myBtn.addEventListener('click', (e) => {
     // console.log(e);
@@ -58,8 +62,32 @@ myBtn.addEventListener('click', (e) => {
     let _district = myForm.elements.district.value
     let _street = myForm.elements.street.value
     let _apartment = myForm.elements.apartment.value
-    console.log(_apartment);
-    // persons.push(new Person(_firstname, _lastname, _age, new Address(_region, _district, _street, _apartment)))
+    
+    persons.push(new Person(_firstname, _lastname, _age, new Address(_region, _district, _street, _apartment)))
+
+    // function print(){
+    //     let response = document.getElementById('print')
+    // return response.value = JSON.stringify(persons[0])
+    // } 
+    // console.log(print());
+    
+    
+    PersonList.push(persons)
+    console.log(PersonList);
+    // localStorage.setItem('persons', JSON.stringify(persons_list))
+    // const get_from_local = localStorage.getItem('persons')
+
+    // if (get_from_local != null) {
+    //     let qosh = localStorage.setItem('persons', JSON.stringify(persons))
+    //     qosh.
+    // } 
+    // else {
+        
+    // }
+    
+    
+    console.log(get_from_local);
+
     // console.log(persons);
     // console.log(myForm.elements.age.value);
 })
