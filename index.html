@@ -11,97 +11,105 @@
 </head>
 
 <body>
-    <marquee behavior="alternate" direction="right">
-        <h1 style="text-align: center; color: red; ">Please enter your information</h1>
-    </marquee>
+    <div class="container">
+        <h3 style="text-align: center;"><strong>CRUD to do list</strong></h3>
 
-    <!-- <ul>
-        <li class="li-item">Birinchi</li>
-        <li class="li-item">Ikkinchi</li>
-        <li>Uchinchi</li>
-    </ul> -->
-    <div id="myDiv">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6"></div>
-            <div class="col-md-3"></div>
+        <div id="myDiv2 container">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <h5>+</h5>
+            </button>
+
+            <div id="myDiv">
+
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Lastname</th>
+                                    <th>Firstname</th>
+                                    <th>Age</th>
+                                    <th>Region</th>
+                                    <th>District</th>
+                                    <th>Street</th>
+                                    <th>Apartment</th>
+                                </tr>
+                            </thead>
+                            <br />
+                            <tbody id="mytable"></tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
         </div>
-
-    </div>
-
-    <div id="myDiv2 container">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add
-        </button>
-
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Account form</h5>
+                        <h4 class="modal-title" id="exampleModalLabel"><strong>Personality questionnaire</strong></h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form name="myForm">
+                        <form name="myForm" id="myForm">
                             <div class="card">
                                 <div class="card-header">
-                                    <img src="./img/avatar.png" style="text-align: center;" alt="person_card" weight="80"
-                                        height="80">
-                                    Card
+                                    <i class="fa-solid fa-circle"><img src="./img/user.svg" style="text-align: center;" alt="person_card"
+                                        weight="40" height="40"></i>
+                                    
+                                    Information of person
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <br>
-                                        <div class="col" name="firstname">
-                                            <label class="form-label" for="firstname">First name:</label>
-                                            <input class="form-control" type="text" name="firstname" placeholder="Firstname">
-                                        </div>
-                                        <br>
+                                    
                                         <div class="col" name="lastname">
-                                            <label class="form-label" for="lastname">Last name:</label>
-                                            <input class="form-control" type="text" name="lastname" placeholder="Lastname">
+                                            <label class="form-label" for="lastname">Lastname:</label>
+                                            <input class="form-control" type="text" name="lastname"
+                                                placeholder="Lastname">
                                         </div>
-                                        <br>
+                                        
+                                        <div class="col" name="firstname">
+                                            <label class="form-label" for="firstname">Firstname:</label>
+                                            <input class="form-control" type="text" name="firstname"
+                                                placeholder="Firstname">
+                                        </div>
+                                        
                                         <div class="col" name="age">
                                             <label class="form-label" for="age">Age:</label>
                                             <input class="form-control" type="number" name="age" placeholder="Age">
                                         </div>
-                                        <br>
+                                        
                                         <div class="col" name="region">
                                             <label class="form-label" for="region">Region:</label>
-                                            <input class="form-control" type="text" name="region" placeholder="Region">
+                                            <select class="form-select" name="Region" id="selectViloyat">
+                                            </select>
+                                            <!-- <input class="form-control" type="text" name="tuman" placeholder="Viloyat"> -->
                                         </div>
-                                        <br>
+                                        
                                         <div class="col" name="district">
                                             <label class="form-label" for="district">District:</label>
-                                            <input class="form-control" type="text" name="district" placeholder="District">
+                                            <input class="form-control" type="text" name="district"
+                                                placeholder="District">
                                         </div>
-                                        <br>
+                                       
                                         <div class="col" name="street">
                                             <label class="form-label" for="street">Street:</label>
                                             <input class="form-control" type="text" name="street" placeholder="Street">
                                         </div>
-                                        <br>
+                                        
                                         <div class="col" name="apartment">
                                             <label class="form-label" for="apartment">Apartment:</label>
-                                            <input class="form-control" type="text" name="apartment" placeholder="Apartment">
+                                            <input class="form-control" type="text" name="apartment"
+                                                placeholder="Apartment">
                                         </div>
-                                        <br>
-                                        <br>
+                                        
                                     </div>
-        
-        
-                                    <!-- <div class="card-footer"> -->
-                                        <!-- <div> -->
-                                            <!-- <button class="btn btn-primary" type="button" style="text-align: center;" -->
-                                                <!-- id="myBtn">Save</button> -->
-                                        <!-- </div> -->
-                                        <!-- <div>
-                                        <button class="btn btn-primary" type="button" style="text-align: center;" id="myBtn1">Create</button>
-                                    </div> -->
-                                    <!-- </div> -->
+
                                 </div>
                             </div>
                         </form>
