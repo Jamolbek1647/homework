@@ -44,7 +44,7 @@ class Address {
 }
 
 let persons = []
-
+// Massivni tekshirishga
 const PersonList = JSON.parse(localStorage.getItem('persons'))
     ? JSON.parse(localStorage.getItem('persons'))
     : []
@@ -62,12 +62,28 @@ myBtn.addEventListener('click', (e) => {
     let _firstname = myForm.elements.firstname.value
     let _lastname = myForm.elements.lastname.value
     let _age = myForm.elements.age.value
-    let _region = myForm.elements.Address?.region.value
+    let _region = myForm.elements.region.value
     let _district = myForm.elements.district.value
     let _street = myForm.elements.street.value
     let _apartment = myForm.elements.apartment.value
 
-    persons.push(new Person(_firstname, _lastname, _age, new Address(_region, _district, _street, _apartment)))
+    // persons.push(new Person(
+    //   _firstname, _lastname, _age, new Address(_region, _district, _street, _apartment)))
+
+
+    persons.push({
+      id: persons.length + 1,
+      firstname: _firstname,
+      lastname: _lastname,
+      age: _age,
+      region: _region,
+      district: _district,
+      street: _street,
+      apartment: _apartment
+    
+    }
+    )
+    // localdagi malumotlarni qayta yuklab olyapti
     localStorage.setItem("persons", JSON.stringify(persons));
     // function print(){
     //     let response = document.getElementById('print')
@@ -104,6 +120,7 @@ const viloyats = [
 ]
 viloyats.forEach((viloyat) => {
     const opt = document.createElement("option");
+    
 
     opt.text = viloyat.text;
     // console.log(opt);
@@ -116,6 +133,7 @@ const persons_from_locale = localStorage.getItem("persons");
 // Local Storagedan ma'lumotlarni tekshirib ejranga chiqarish
 if (persons_from_locale != null) {
   const json = JSON.parse(persons_from_locale);
+  // json obyektni ochib persons massivga yuklayapti
   persons = [...json];
   console.log(persons);
 } else {
@@ -124,22 +142,24 @@ if (persons_from_locale != null) {
 table_body = document.getElementById("mytable")
 page = 1
 loadTable();
+
 function loadTable() {
   table_body.innerHTML = "";
+  //  e-obyekt k- indeks 
   persons.map((e, k) => {
-    if (page == Math.floor(k / 10) + 1) {
+    if (page == Math.floor(k/10) + 1) {
       table_body.innerHTML += addRow(e);
     }
   });
 }
-
+loadTable();
 function addRow(item) {
   return ` <tr>
     <td>${item.id}</td>
     <td>${item.lastname}</td>
     <td>${item.firstname}</td>
     <td>${item.age}</td>
-    <td>${item.Region}</td>
+    <td>${item.region}</td>
     <td>${item.district}</td>
     <td>${item.street}</td>
     <td>${item.apartment}</td>
