@@ -6,7 +6,7 @@ class Person {
         this.address = address
     }
 }
-let persons = []
+
 class Address {
     constructor(region, district, street, apartment) {
         this.region = region
@@ -43,7 +43,7 @@ class Address {
     //     console.log(iterator.innerHTML);
 }
 
-
+let persons = []
 
 const PersonList = JSON.parse(localStorage.getItem('persons'))
     ? JSON.parse(localStorage.getItem('persons'))
@@ -56,17 +56,19 @@ myBtn.addEventListener('click', (e) => {
     // const firstname = document.getElementById('firstname');
     // const lastname = document.getElementById('lastname');
     // console.log(firstname.value, lastname.value);
-    const myForm = document.forms.myForm
-    let _firstname = myForm.elements.ism.value
-    let _lastname = myForm.elements.familiya.value
-    let _age = myForm.elements.yosh.value
-    let _region = myForm.elements.viloyat.value
-    let _district = myForm.elements.tuman.value
-    let _street = myForm.elements.kocha.value
+    
+    const myForm = document.getElementById('myForm')
+    // const myForm = document.forms.myForm
+    let _firstname = myForm.elements.firstname.value
+    let _lastname = myForm.elements.lastname.value
+    let _age = myForm.elements.age.value
+    let _region = myForm.elements.Address?.region.value
+    let _district = myForm.elements.district.value
+    let _street = myForm.elements.street.value
     let _apartment = myForm.elements.apartment.value
 
     persons.push(new Person(_firstname, _lastname, _age, new Address(_region, _district, _street, _apartment)))
-
+    localStorage.setItem("persons", JSON.stringify(persons));
     // function print(){
     //     let response = document.getElementById('print')
     // return response.value = JSON.stringify(persons[0])
@@ -78,23 +80,14 @@ myBtn.addEventListener('click', (e) => {
     console.log(PersonList);
     // localStorage.setItem('persons', JSON.stringify(persons_list))
     // const get_from_local = localStorage.getItem('persons')
-
-    // if (get_from_local != null) {
-    //     let qosh = localStorage.setItem('persons', JSON.stringify(persons))
-    //     qosh.
-    // } 
-    // else {
-
-    // }
-
-
-    console.log(get_from_local);
+    // console.log(get_from_local);
     
     // console.log(persons);
     // console.log(myForm.elements.age.value);
 })
 
 const selectViloyat = document.getElementById("selectViloyat")
+
 const viloyats = [
     {id: 1, text: "Toshkent"},
     {id: 2, text: "Sirdaryo"},
@@ -111,6 +104,55 @@ const viloyats = [
 ]
 viloyats.forEach((viloyat) => {
     const opt = document.createElement("option");
-    opt.text =viloyat.text;
+
+    opt.text = viloyat.text;
+    // console.log(opt);
     selectViloyat.appendChild(opt);
 });
+
+const persons_from_locale = localStorage.getItem("persons");
+// console.log(cars_from_locale);
+
+// Local Storagedan ma'lumotlarni tekshirib ejranga chiqarish
+if (persons_from_locale != null) {
+  const json = JSON.parse(persons_from_locale);
+  persons = [...json];
+  console.log(persons);
+} else {
+  console.log("Ma'lumot topilmadi");
+}
+table_body = document.getElementById("mytable")
+page = 1
+loadTable();
+function loadTable() {
+  table_body.innerHTML = "";
+  persons.map((e, k) => {
+    if (page == Math.floor(k / 10) + 1) {
+      table_body.innerHTML += addRow(e);
+    }
+  });
+}
+
+function addRow(item) {
+  return ` <tr>
+    <td>${item.id}</td>
+    <td>${item.lastname}</td>
+    <td>${item.firstname}</td>
+    <td>${item.age}</td>
+    <td>${item.Region}</td>
+    <td>${item.district}</td>
+    <td>${item.street}</td>
+    <td>${item.apartment}</td>
+
+    <td>
+    <button class="btn btn-success"  onclick="editItem(${item.id})">
+            <img src="./img/edit.svg" width="20" height="20"></img>
+    </button>      
+    </td>
+    <td>
+    <button class = "btn btn-danger"  onclick="editItem(${item.id})">
+    <img src="./img/delete.svg" width="20" height="20"></img>
+
+        </button></td>
+</tr>`;
+}
