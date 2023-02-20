@@ -24,8 +24,7 @@
             <div id="myDiv">
 
                 <div class="row">
-                    <!--  -->
-                    <div class="col-md-3"></div>  
+                    <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <table class="table table-striped">
                             <thead>
@@ -42,9 +41,21 @@
                             </thead>
                             <br />
                             <tbody id="mytable"></tbody>
+                            <tfoot>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-center">
+                                            <ul class="pagination">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tfoot>
                         </table>
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <!-- <button type="button" class="btn btn-primary" onclick="addNew()">Add new person</button> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,19 +72,19 @@
                         <form name="myForm" id="myForm">
                             <div class="card">
                                 <div class="card-header">
-                                    <i class="fa-solid fa-circle"><img src="./img/user.svg" style="text-align: center;" alt="person_card"
-                                        weight="40" height="40"></i>
+                                    <i class="fa-solid fa-circle"><img src="./img/user.svg" style="text-align: center;"
+                                            alt="person_card" weight="40" height="40"></i>
                                     Information of person
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                    
+
                                         <div class="col" name="lastname">
                                             <label class="form-label" for="lastname">Lastname:</label>
                                             <input class="form-control" type="text" name="lastname"
                                                 placeholder="Lastname">
                                         </div>
-                                        
+
                                         <div class="col" name="firstname">
                                             <label class="form-label" for="firstname">Firstname:</label>
                                             <input class="form-control" type="text" name="firstname"
@@ -86,7 +97,7 @@
                                             <label class="form-label" for="age">Age:</label>
                                             <input class="form-control" type="number" name="age" placeholder="Age">
                                         </div>
-                                        
+
                                         <div class="col" name="region">
                                             <label class="form-label" for="region">Region:</label>
                                             <select class="form-select" name="region" id="selectViloyat">
@@ -95,26 +106,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">     
+                                    <div class="row">
                                         <div class="col" name="district">
                                             <label class="form-label" for="district">District:</label>
                                             <input class="form-control" type="text" name="district"
                                                 placeholder="District">
                                         </div>
-                                       
+
                                         <div class="col" name="street">
                                             <label class="form-label" for="street">Street:</label>
                                             <input class="form-control" type="text" name="street" placeholder="Street">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <div class="col" name="apartment">
                                             <label class="form-label" for="apartment">Apartment:</label>
                                             <input class="form-control" type="text" name="apartment"
                                                 placeholder="Apartment">
                                         </div>
-                                        
+
                                     </div>
 
                                 </div>
@@ -124,7 +135,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="myBtn">Save changes</button>
-                    
+
                     </div>
                 </div>
             </div>
