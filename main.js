@@ -1,9 +1,13 @@
+let persons = [];
+syncFromLocale();
+
 class PageOptions {
-  constructor(page, size){
+  constructor(page, pageSize) {
     this.page = page;
-    this.size = size;
+    this.pageSize = pageSize;
   }
 }
+// const pageOptions = new PageOptions(1,10)
 class Person {
   constructor(firstname, lastname, age, address) {
     this.firstname = firstname
@@ -20,37 +24,10 @@ class Address {
     this.street = street
     this.apartment = apartment
   }
-
-
-  //DOM
-  // console.log(document);
-  // document.getElementById('myDiv');
-  // const myDiv = document.getElementById('myDiv')
-  // console.log(myDiv);
-
-  // myDiv.textContent = 'test text content' //faqat text yozish uchun
-
-  // myDiv.innerHTML = '<strong>test text content</strong>' // htmldagi amallarni bajarsa bo'ladi yani html tiliga o'giradi
-
-  // const myH1 = document.createElement('h1')
-  // myH1.style = 'font-weight: 600'
-  // const mySpam = document.createElement('span')
-  // mySpam.innerHTML = 'This is spam';
-  // mySpam.style = 'color: blue'
-  // myH1.appendChild(mySpam)
-  // myDiv.innerHTML = myH1.innerHTML 
-  // console.log(myH1);
-
-
-  //query selector
-  // const myQuery = document.querySelectorAll('.li-item')
-  // console.log(myQuery.length);
-  // for (const iterator of myQuery) {
-  //     console.log(iterator.innerHTML);
 }
-const pageOptions = new PageOptions(4,10)
+const pageOptions = new PageOptions(1, 10)
 
-let persons = []
+
 // Massivni tekshirishga
 const PersonList = JSON.parse(localStorage.getItem('persons'))
   ? JSON.parse(localStorage.getItem('persons'))
@@ -59,56 +36,63 @@ const PersonList = JSON.parse(localStorage.getItem('persons'))
 //Button bosishda mal olsin
 const myBtn = document.getElementById('myBtn')
 myBtn.addEventListener('click', (e) => {
-  // console.log(e);
-  // const firstname = document.getElementById('firstname');
-  // const lastname = document.getElementById('lastname');
-  // console.log(firstname.value, lastname.value);
-
-  const myForm = document.getElementById('myForm')
-  // const myForm = document.forms.myForm
-  let _firstname = myForm.elements.firstname.value
-  let _lastname = myForm.elements.lastname.value
-  let _age = myForm.elements.age.value
-  let _region = myForm.elements.region.value
-  let _district = myForm.elements.district.value
-  let _street = myForm.elements.street.value
-  let _apartment = myForm.elements.apartment.value
-
-  // persons.push(new Person(
-  //   _firstname, _lastname, _age, new Address(_region, _district, _street, _apartment)))
-
-
-  persons.push({
-    id: persons.length + 1,
-    firstname: _firstname,
-    lastname: _lastname,
-    age: _age,
-    region: _region,
-    district: _district,
-    street: _street,
-    apartment: _apartment
-
+  save();
+  // console.log(persons);
+  loadTable();
   }
   )
   // localdagi malumotlarni qayta yuklab olyapti
   localStorage.setItem("persons", JSON.stringify(persons));
-  // function print(){
-  //     let response = document.getElementById('print')
-  // return response.value = JSON.stringify(persons[0])
-  // } 
-  // console.log(print());
-
 
   PersonList.push(persons)
-  console.log(PersonList);
-  // localStorage.setItem('persons', JSON.stringify(persons_list))
-  // const get_from_local = localStorage.getItem('persons')
-  // console.log(get_from_local);
+  // console.log(PersonList);
 
-  // console.log(persons);
-  // console.log(myForm.elements.age.value);
-})
+// })
 
+function save() {
+  //edit or add
+  const myForm = document.forms.myForm;
+  const personId = myForm.elements.personId.value;
+
+  //form values
+  let _firstname = myForm.elements.firstname.value;
+  let _lastname = myForm.elements.lastname.value;
+  let _age = myForm.elements.age.value;
+  let _region = myForm.elements.region.value;
+  let _district = myForm.elements.district.value;
+  let _street = myForm.elements.street.value;
+  let _apartment = myForm.elements.apartment.value;
+
+  if (personId && personId > 0) {
+    //edit
+    const _item = persons.find(a=>a.id == personId);
+    _item.firstname = _firstname;
+    _item.age = _age;
+    _item.lastname = _lastname;
+    _item.regin = _region;
+    _item.district = _district;
+    _item.street = _street;
+    _item.apartment = _apartment;
+    
+  }
+  else{
+    //add
+    persons.push({
+      id: persons.length + 1,
+      firstname: _firstname,
+      lastname: _lastname,
+      age: _age,
+      region: _region,
+      district: _district,
+      street: _street,
+      apartment: _apartment
+  
+    }
+    )
+    clear();
+    saveToLocale();
+  }
+}
 const selectViloyat = document.getElementById("selectViloyat")
 
 const viloyats = [
@@ -128,41 +112,46 @@ const viloyats = [
 viloyats.forEach((viloyat) => {
   const opt = document.createElement("option");
 
-
   opt.text = viloyat.text;
   // console.log(opt);
   selectViloyat.appendChild(opt);
 });
 
-const persons_from_locale = localStorage.getItem("persons");
-// console.log(cars_from_locale);
+function editItem(id) {
+  //persons find item
+  const item = persons.find(a => a.id === id);
+  if (item) {
+      console.log('item' + item)
+      //form elemntlariga valuelarni set qilish 
+      const myForm = document.forms.myForm;
+      myForm.elements.personId.value = id;//identificator
+      myForm.elements.age.value = item.age;
+      myForm.elements.firstname.value = item.firstname;
+      myForm.elements.lastname.value = item.lastname;
+      myForm.elements.regionId.value = item.address?.regionId;
+      myForm.elements.district.value = item.district;
+      myForm.elements.apartment.value = item.apartment;
+      openModal();
+  }
 
-// Local Storagedan ma'lumotlarni tekshirib ejranga chiqarish
-if (persons_from_locale != null) {
-  const json = JSON.parse(persons_from_locale);
-  // json obyektni ochib persons massivga yuklayapti
-  persons = [...json];
-  console.log(persons);
-} else {
-  console.log("Ma'lumot topilmadi");
 }
-table_body = document.getElementById("mytable")
-page = 1
-loadTable();
+
+const table_body = document.getElementById('mytable');
 
 function loadTable() {
-  table_body.innerHTML = "";
-  //  e-obyekt k- indeks 
-  persons.map((e, k) => {
-    if (page == Math.floor(k / 10) + 1) {
-      table_body.innerHTML += addRow(e);
-    }
-  }); 
+  table_body.innerHTML = '';
+  //  sahifalash
+  const start = (pageOptions.page - 1) * pageOptions.pageSize;
+  const pagePersons = persons.slice(start, start + pageOptions.pageSize)
+  pagePersons.forEach((e, i) => {
+    table_body.innerHTML += addRow(e, i + 1);
+  })
 }
 loadTable();
-function addRow(item) {
-  return ` <tr>
-    <td>${item.id}</td>
+
+function addRow(item, index) {
+  return ` <tr id='tr_${index}' onclick="selectRow(${index})">
+    <td>${index}</td>
     <td>${item.lastname}</td>
     <td>${item.firstname}</td>
     <td>${item.age}</td>
@@ -170,51 +159,117 @@ function addRow(item) {
     <td>${item.district}</td>
     <td>${item.street}</td>
     <td>${item.apartment}</td>
-
     <td>
     <button class="btn btn-success"  onclick="editItem(${item.id})">
             <img src="./img/edit.svg" width="20" height="20"></img>
     </button>      
     </td>
     <td>
-    <button class = "btn btn-danger"  onclick="editItem(${item.id})">
+    <button class = "btn btn-danger"  onclick="deleteItem(${item.id})">
     <img src="./img/delete.svg" width="20" height="20"></img>
-
         </button></td>
 </tr>`;
 }
 
-// function addNew() {
-//   clear();
-//   openModal();
-// }
 
-// function close() {
-//   // const modal = document.getElementById('exampleModal');
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
-//   myModal.hide();
 
-// }
+loadTable();
+function addNew() {
+  clear();
+  openModal();
 
-// function openModal() {
+}
 
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-//   myModal.show();
-// }
+function close() {
+  // const modal = document.getElementById('exampleModal');
+  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
+  myModal.hide();
 
+}
+
+function clear() {
+  const myForm = document.forms.myForm;
+  myForm.reset();
+
+}
+
+function openModal() {
+  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+  myModal.show();
+}
+
+function deleteItem(id) {
+  const item = persons.find(a => a.id === id);
+  const index = persons.indexOf(item);
+  persons.splice(index, 1);
+  saveToLocale();
+  loadTable();
+}
+
+//Save to local storage
+function saveToLocale() {
+  localStorage.setItem('persons', JSON.stringify(persons));
+}
+
+// Local Storagedan ma'lumotlarni tekshirib ejranga chiqarish
+//Get from local storage
+function syncFromLocale() {
+  const personsString = localStorage.getItem('persons');
+  if (personsString) {
+    const _persons = JSON.parse(personsString);
+    if (Array.isArray(_persons)) {
+      persons = [..._persons]
+    }
+  }
+}
+
+
+//PAGINATION
+loadTable();
 function drawPagination() {
   const pagination = document.querySelector('.pagination');
-  const previous = `<li class="page-item">
-  <a class="page-link" href="#" aria-label="Previous">
+  const next = `
+<li class="page-item" >
+    <a class="page-link" href="javascript:(0);" aria-label="Next" onclick="next()">
+        <span aria-hidden="true">&raquo;</span>
+    </a>
+</li>`;
+  let numbers = ``;
+  const pageCount = Math.ceil((persons.length / pageOptions.pageSize));
+  const prev = `<li class="page-item">
+<a class="page-link" href="javascript:(0);" aria-label="Previous"  onclick="prev()">
     <span aria-hidden="true">&laquo;</span>
-  </a>
-</li>`
-  const numbers = ``;
-  const Pagecount = Math.floor((persons.length/pageOptions.page));
-  const next = `<li class="page-item">
-  <a class="page-link" href="#" aria-label="Next">
-    <span aria-hidden="true">&raquo;</span>
-  </a>
-</li>`
+</a>
+</li>
+`;
+  console.log(pageOptions.page);
+  for (let index = 0; index < pageCount; index++) {
+    const pageNumber = index + 1;
+    numbers += `<li class="page-item ${pageNumber == pageOptions.page ? 'active' : ''}"><a class="page-link" href="javascript:(0);" onclick="onPageChanged(${pageNumber})">${pageNumber}</a></li>`;
+  }
+  pagination.innerHTML = prev + numbers + next;
 }
 drawPagination();
+function onPageChanged(number) {
+  console.log(number)
+  pageOptions.page = number;
+  loadTable();
+  drawPagination();
+}
+function prev() {
+  console.log('prev', persons.length)
+  if (pageOptions.page > 1) {
+    pageOptions.page -= 1;
+    loadTable();
+    drawPagination();
+  }
+}
+function next() {
+  const pageCount = Math.ceil((persons.length / pageOptions.pageSize));
+  console.log('next', persons.length)
+  if (pageOptions.page < pageCount) {
+    pageOptions.page += 1;
+    loadTable();
+    drawPagination();
+  }
+}

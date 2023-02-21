@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD project</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
 
 <body>
@@ -16,10 +17,7 @@
 
         <div id="myDiv2 container">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary d-flex justify-content-center" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                <h5>+</h5>
-            </button>
+            
 
             <div id="myDiv">
 
@@ -41,20 +39,18 @@
                             </thead>
                             <br />
                             <tbody id="mytable"></tbody>
-                            <tfoot>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="d-flex justify-content-center">
-                                            <ul class="pagination">
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </tfoot>
                         </table>
                     </div>
                     <div class="col-md-3">
-                        <!-- <button type="button" class="btn btn-primary" onclick="addNew()">Add new person</button> -->
+                        <button type="button" class="btn btn-primary" onclick="addNew()">Add new person</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex justify-content-center">
+                        <ul class="pagination">
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -77,6 +73,7 @@
                                     Information of person
                                 </div>
                                 <div class="card-body">
+                                    <input name="personId" type="hidden">
                                     <div class="row">
 
                                         <div class="col" name="lastname">
