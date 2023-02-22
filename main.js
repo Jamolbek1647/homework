@@ -39,13 +39,13 @@ myBtn.addEventListener('click', (e) => {
   save();
   // console.log(persons);
   loadTable();
-  }
-  )
-  // localdagi malumotlarni qayta yuklab olyapti
-  localStorage.setItem("persons", JSON.stringify(persons));
+}
+)
+// localdagi malumotlarni qayta yuklab olyapti
+localStorage.setItem("persons", JSON.stringify(persons));
 
-  PersonList.push(persons)
-  // console.log(PersonList);
+PersonList.push(persons)
+// console.log(PersonList);
 
 // })
 
@@ -65,7 +65,7 @@ function save() {
 
   if (personId && personId > 0) {
     //edit
-    const _item = persons.find(a=>a.id == personId);
+    const _item = persons.find(a => a.id == personId);
     _item.firstname = _firstname;
     _item.age = _age;
     _item.lastname = _lastname;
@@ -73,9 +73,9 @@ function save() {
     _item.district = _district;
     _item.street = _street;
     _item.apartment = _apartment;
-    
+
   }
-  else{
+  else {
     //add
     persons.push({
       id: persons.length + 1,
@@ -86,7 +86,7 @@ function save() {
       district: _district,
       street: _street,
       apartment: _apartment
-  
+
     }
     )
     clear();
@@ -118,20 +118,22 @@ viloyats.forEach((viloyat) => {
 });
 
 function editItem(id) {
+
   //persons find item
   const item = persons.find(a => a.id === id);
+  console.log(item);
   if (item) {
-      console.log('item' + item)
-      //form elemntlariga valuelarni set qilish 
-      const myForm = document.forms.myForm;
-      myForm.elements.personId.value = id;//identificator
-      myForm.elements.age.value = item.age;
-      myForm.elements.firstname.value = item.firstname;
-      myForm.elements.lastname.value = item.lastname;
-      myForm.elements.regionId.value = item.address?.regionId;
-      myForm.elements.district.value = item.district;
-      myForm.elements.apartment.value = item.apartment;
-      openModal();
+    console.log('item' + item)
+    //form elementlariga valuelarni set qilish 
+    const myForm = document.forms.myForm;
+    myForm.elements.personId.value = id;//identificator
+    myForm.elements.age.value = item.age;
+    myForm.elements.firstname.value = item.firstname;
+    myForm.elements.lastname.value = item.lastname;
+    myForm.elements.regionId.value = item.address?.regionId;
+    myForm.elements.district.value = item.district;
+    myForm.elements.apartment.value = item.apartment;
+    openModal();
   }
 
 }
@@ -151,7 +153,7 @@ loadTable();
 
 function addRow(item, index) {
   return ` <tr id='tr_${index}' onclick="selectRow(${index})">
-    <td>${index}</td>
+    <td>${index*(pageOptions.pageSize)}</td>
     <td>${item.lastname}</td>
     <td>${item.firstname}</td>
     <td>${item.age}</td>
@@ -160,17 +162,20 @@ function addRow(item, index) {
     <td>${item.street}</td>
     <td>${item.apartment}</td>
     <td>
-    <button class="btn btn-success"  onclick="editItem(${item.id})">
+    <button class="btn btn-success"  onclick="editItem('${item.id}')">
             <img src="./img/edit.svg" width="20" height="20"></img>
     </button>      
     </td>
     <td>
     <button class = "btn btn-danger"  onclick="deleteItem(${item.id})">
     <img src="./img/delete.svg" width="20" height="20"></img>
-        </button></td>
+    </button>
+    </td>
 </tr>`;
 }
-
+function selectRow(e) {
+  console.log(e)
+}
 
 
 loadTable();
