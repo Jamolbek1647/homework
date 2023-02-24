@@ -84,7 +84,7 @@ function save() {
     _item.firstname = _firstname;
     _item.age = _age;
     _item.lastname = _lastname;
-    _item.regin = _region;
+    _item.region = _region;
     _item.district = _district;
     _item.street = _street;
     _item.apartment = _apartment;
@@ -128,23 +128,33 @@ viloyats.forEach((viloyat) => {
   selectViloyat.appendChild(opt);
 });
 
-function editItem(id) {
+function editItem(changeID) {
   //persons find item
-  const item = persons.find((a) => a.id === id);
-  console.log(item);
+  // console.log(id, "ID");
+  const item = persons.find((a) => a.id == changeID);
+  // console.log(item);
   if (item) {
     console.log("item" + item);
     //form elementlariga valuelarni set qilish
     const myForm = document.forms.myForm;
-    myForm.elements.personId.value = id; //identificator
+    myForm.elements.personId.value = changeID; //identificator
     myForm.elements.age.value = item.age;
     myForm.elements.firstname.value = item.firstname;
     myForm.elements.lastname.value = item.lastname;
-    myForm.elements.regionId.value = item.address?.regionId;
+    myForm.elements.region.value = item.region;
     myForm.elements.district.value = item.district;
+    myForm.elements.street.value = item.street;
     myForm.elements.apartment.value = item.apartment;
     openModal();
+    saveToLocale();
+    loadTable();
+    console.log(persons);
   }
+  
+
+  saveToLocale();
+  loadTable();
+  
 }
 
 const table_body = document.getElementById("mytable");
@@ -162,8 +172,7 @@ loadTable();
 
 function addRow(item, index) {
   return ` <tr id='tr_${index}' onclick="selectRow(${index})">
-    <td>${
-      pageOptions.page * pageOptions.pageSize - (pageOptions.pageSize - index)
+    <td>${pageOptions.page * pageOptions.pageSize - (pageOptions.pageSize - index)
     }</td>
     <td>${item.lastname}</td>
     <td>${item.firstname}</td>
@@ -185,15 +194,15 @@ function addRow(item, index) {
 </tr>`;
 }
 function selectRow(e) {
-    console.log(e);
-    const tr = document.getElementById('tr_' + e);
-    tr.classList.add("person-row-selected");
+  // console.log(e);
+  const tr = document.getElementById('tr_' + e);
+  tr.classList.add("person-row-selected");
 }
 
 loadTable();
 function addNew() {
-    clear();
-    openModal();
+  clear();
+  openModal();
 }
 
 function close() {
@@ -241,9 +250,8 @@ function drawPagination() {
   console.log(pageOptions.page);
   for (let index = 0; index < pageCount; index++) {
     const pageNumber = index + 1;
-    numbers += `<li class="page-item ${
-      pageNumber == pageOptions.page ? "active" : ""
-    }"><a class="page-link" href="javascript:(0);" onclick="onPageChanged(${pageNumber})">${pageNumber}</a></li>`;
+    numbers += `<li class="page-item ${pageNumber == pageOptions.page ? "active" : ""
+      }"><a class="page-link" href="javascript:(0);" onclick="onPageChanged(${pageNumber})">${pageNumber}</a></li>`;
   }
   pagination.innerHTML = prev + numbers + next;
 }
