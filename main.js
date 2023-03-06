@@ -90,16 +90,17 @@ function save() {
     _item.apartment = _apartment;
   } else {
     //add
-    persons.push({
-      id: persons.length + 1,
-      firstname: _firstname,
-      lastname: _lastname,
-      age: _age,
-      region: _region,
-      district: _district,
-      street: _street,
-      apartment: _apartment,
-    });
+    const newItem = new Person(_firstname, _lastname, _age, new Address(_region, _district, _street, _apartment))
+    const resp = fetch('http://localhost:3000/persons/create', {method:"POST", body:JSON.stringify(newItem), headers: {'Content-Type':'application/json'}}).then();
+    persons.push(newItem);
+      // id: persons.length + 1,
+      // firstname: _firstname,
+      // lastname: _lastname,
+      // age: _age,
+      // region: _region,
+      // district: _district,
+      // street: _street,
+      // apartment: _apartment,
     clear();
     saveToLocale();
   }
